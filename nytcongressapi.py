@@ -19,8 +19,10 @@ try:
 except ImportError:
     import simplejson as json
 
+
 class NYTCongressApiError(Exception):
     """ Exception for New York Times Congress API errors """
+
 
 class NYTCongressApiObject(object):
     def __init__(self, d):
@@ -52,15 +54,16 @@ class Member(NYTCongressApiObject):
         else:
             return "%s %s" % (self.first_name, self.last_name)
 
-<<<<<<< HEAD:nytcongressapi.py
+
 class MemberTotal(NYTCongressApiObject):
     def __str__(self):
         return '%s' % unicode(self.name).encode('utf-8')
 
+
 class MemberRole(NYTCongressApiObject):
     def __str__(self):
         return '%s' % unicode(self.name).encode('utf-8')
-=======
+
 
 class MemberRole(NYTCongressApiObject):
     def __repr__(self):
@@ -76,15 +79,15 @@ class MemberRole(NYTCongressApiObject):
     def __str__(self):
         return '%s' % unicode(self.name).encode('utf-8')
 
->>>>>>> e9430facfaefccfd6aa1f7d82ee220c80d3c158f:nytcongressapi.py
+
 
 class Vote(NYTCongressApiObject):
     def __str__(self):
         return 'Roll Call Vote %s in the %s Congress' % (self.roll_call, self.congress)
-<<<<<<< HEAD:nytcongressapi.py
+
 
 class Bill(NYTCongressApiObject):
-=======
+
 
 class FloorAppearance(NYTCongressApiObject):
     _member = None
@@ -109,9 +112,11 @@ class FloorAppearance(NYTCongressApiObject):
         year, month, day = [int(d) for d in self.date.split('-')]
         return datetime.date(year, month, day)
 
+
 class Nominee(NYTCongressApiObject):
     def __repr__(self):
         return '<%s: %s>' % ('Nominee', self.nomination_number)
+
 
 class Bill(NYTCongressApiObject):
     def __repr__(self):
@@ -121,9 +126,9 @@ class Bill(NYTCongressApiObject):
         slug = self.number.lower().replace('.','')
         return "http://politics.nytimes.com/congress/bills/111/%s" % slug
 
->>>>>>> e9430facfaefccfd6aa1f7d82ee220c80d3c158f:nytcongressapi.py
     def __str__(self):
         return '%s' % unicode(self.number)
+
 
 class Committee(NYTCongressApiObject):
     def __init__(self, d):
@@ -135,6 +140,7 @@ class Committee(NYTCongressApiObject):
             return '%s' % self.name
         except:
             return '%s' % self.committee
+
 
 class Comparison(NYTCongressApiObject):
     """
@@ -169,7 +175,6 @@ class Comparison(NYTCongressApiObject):
             return '%s and %s agree %s percent of the time' % (self.first_member, self.second_member, self.agree_percent)
         else:
             return '%s%% agreement' % self.agree_percent
-<<<<<<< HEAD:nytcongressapi.py
 
 
 class FloorAppearance(NYTCongressApiObject):
@@ -190,8 +195,6 @@ class FloorAppearance(NYTCongressApiObject):
     
     def __str__(self):
         return self.title
-=======
->>>>>>> e9430facfaefccfd6aa1f7d82ee220c80d3c158f:nytcongressapi.py
 
 
 # namespaces #
@@ -204,9 +207,11 @@ class nytcongress(object):
     def _apicall(path, params):
         # fix to allow for keyword args
         if params:
-            url = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/%s.json?api-key=%s&%s" % (path, nytcongress.api_key, urllib.urlencode(params))
+            url = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/%s.json?api-key=%s&%s" \
+                % (path, nytcongress.api_key, urllib.urlencode(params))
         else:
-            url = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/%s.json?api-key=%s" % (path, nytcongress.api_key)
+            url = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/%s.json?api-key=%s" \
+                % (path, nytcongress.api_key)
         if nytcongress.api_key is None:
             raise NYTCongressApiError('You did not supply an API key')        
         try:
